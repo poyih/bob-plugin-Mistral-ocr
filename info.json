@@ -1,6 +1,6 @@
 {
     "identifier": "com.poyih.bob-plugin-mistral-ocr",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "category": "ocr",
     "name": "Mistral OCR",
     "summary": "使用 Mistral AI OCR 进行文本识别",
@@ -8,7 +8,7 @@
     "author": "poyih",
     "homepage": "",
     "appcast": "https://raw.githubusercontent.com/poyih/bob-plugin-Mistral-ocr/main/appcast.json",
-    "minBobVersion": "0.5.0",
+    "minBobVersion": "1.8.0",
     "options": [
         {
             "identifier": "apiKey",

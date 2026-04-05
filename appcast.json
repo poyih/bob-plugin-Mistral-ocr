@@ -2,6 +2,14 @@
     "identifier": "com.poyih.bob-plugin-mistral-ocr",
     "versions": [
         {
+            "version": "0.3.0",
+            "desc": "最低 Bob 版本要求提高至 1.8.0",
+            "sha256": "c340021569a7606ae3e28288a5b32109a9310e813e171b607fcfc870e801dea6",
+            "url": "https://github.com/poyih/bob-plugin-Mistral-ocr/releases/download/v0.3.0/Mistral-OCR.bobplugin",
+            "minBobVersion": "1.8.0",
+            "timestamp": 1743868800000
+        },
+        {
             "version": "0.2.0",
             "desc": "首个发布版本，支持 Mistral AI OCR 文本识别",
             "sha256": "759ba4063665ca874d0ef3f4092f11d399387c09b63ae0cdd99ab83bed1e27d0",
