@@ -151,9 +151,7 @@ function ocr(query, completion) {
                 if (!page.markdown || !page.markdown.trim()) return;
 
                 var content = keepMarkdown ? page.markdown : stripMarkdown(page.markdown);
-                content.split(/\n/).forEach(function (line) {
-                    texts.push({ text: line });
-                });
+                texts.push({ text: content.replace(/\n/g, '\n\n') });
             });
 
             if (texts.length === 0) {
