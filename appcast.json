@@ -2,6 +2,14 @@
     "identifier": "bob-plugin-mistral-ocr",
     "versions": [
         {
+            "version": "1.0.2",
+            "desc": "修复识别结果不换行的问题",
+            "sha256": "43f2fe0d779dcd26450e5a995a7f49e1241afc61632b855971bfdf455906249a",
+            "url": "https://github.com/poyih/bob-plugin-Mistral-ocr/releases/download/v1.0.2/Mistral-OCR.bobplugin",
+            "minBobVersion": "1.8.0",
+            "timestamp": 1744022400
+        },
+        {
             "version": "1.0.1",
             "desc": "修复识别结果不换行的问题",
             "sha256": "20e4495d9a8d407de452ca64b60e3a19cb32513d9845022285c20cad16633795",
