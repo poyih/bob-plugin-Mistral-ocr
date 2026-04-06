@@ -151,14 +151,10 @@ function ocr(query, completion) {
                 if (!page.markdown || !page.markdown.trim()) return;
 
                 var content = keepMarkdown ? page.markdown : stripMarkdown(page.markdown);
-                var paragraphs = content
-                    .split(/\n\n+/)
-                    .map(function (p) { return p.trim(); })
-                    .filter(function (p) { return p.length > 0; });
-
-                paragraphs.forEach(function (p) {
-                    texts.push({ text: p });
-                });
+                content = content.trim();
+                if (content.length > 0) {
+                    texts.push({ text: content });
+                }
             });
 
             if (texts.length === 0) {
