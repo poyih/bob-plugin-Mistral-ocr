@@ -1,6 +1,6 @@
 {
     "identifier": "bob-plugin-mistral-ocr",
-    "version": "1.0.9",
+    "version": "1.1.0",
     "category": "ocr",
     "name": "Mistral OCR",
     "summary": "使用 Mistral AI OCR 进行文本识别",

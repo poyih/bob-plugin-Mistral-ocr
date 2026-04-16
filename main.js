@@ -75,6 +75,68 @@ function stripMarkdown(text) {
         .trim();
 }
 
+function pluginValidate(completion) {
+    var apiKey = $option.apiKey;
+    if (!apiKey) {
+        completion({
+            result: false,
+            error: {
+                type: "secretKey",
+                message: "请先填写 Mistral AI API Key",
+            },
+        });
+        return;
+    }
+
+    var apiUrl = ($option.apiUrl || "https://api.mistral.ai").replace(/\/+$/, '');
+
+    $http.request({
+        method: "GET",
+        url: apiUrl + "/v1/models",
+        header: {
+            Authorization: "Bearer " + apiKey,
+        },
+        timeout: 10,
+        handler: function (resp) {
+            if (resp.error) {
+                completion({
+                    result: false,
+                    error: {
+                        type: "network",
+                        message: "网络请求失败: " + (resp.error.message || "未知错误"),
+                    },
+                });
+                return;
+            }
+
+            var statusCode = resp.response.statusCode;
+            if (statusCode === 401 || statusCode === 403) {
+                completion({
+                    result: false,
+                    error: {
+                        type: "secretKey",
+                        message: "API Key 无效或已过期",
+                    },
+                });
+                return;
+            }
+
+            if (statusCode !== 200) {
+                completion({
+                    result: false,
+                    error: {
+                        type: "api",
+                        message: "验证失败，状态码: " + statusCode,
+                    },
+                });
+                return;
+            }
+
+            completion({ result: true });
+        },
+    });
+}
+
 function ocr(query, completion) {
     var apiKey = $option.apiKey;
     if (!apiKey) {

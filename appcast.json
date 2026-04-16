@@ -2,6 +2,14 @@
     "identifier": "bob-plugin-mistral-ocr",
     "versions": [
         {
+            "version": "1.1.0",
+            "desc": "新增验证按钮，支持在设置中验证 API Key 是否有效",
+            "sha256": "1799d1e099794fefd518d3b936259d2c8e436a9de14673d72aa9cbff02c87d32",
+            "url": "https://github.com/poyih/bob-plugin-Mistral-ocr/releases/download/v1.1.0/Mistral-OCR.bobplugin",
+            "minBobVersion": "1.8.0",
+            "timestamp": 1776332319
+        },
+        {
             "version": "1.0.9",
             "desc": "修复 Codex 改动导致 OCR 结果不换行的问题",
             "sha256": "b2d5b84a8c9a0c647dd40fc4f2c43c64f51202f36e64c623f2216efb0a14afdf",
