@@ -64,7 +64,7 @@ function stripMarkdown(text) {
     return text
         // 移除围栏代码块 ```lang ... ```，保留内容
         .replace(/```[\s\S]*?```/g, function (match) {
-            return match.replace(/```\w*\n?/g, '').replace(/```/g, '').trim();
+            return match.replace(/```[^\n]*\n?/g, '').replace(/```/g, '').trim();
         })
         // 移除图片 ![alt](url)
         .replace(/!\[([^\]]*)\]\([^)]*\)/g, '$1')
@@ -72,8 +72,8 @@ function stripMarkdown(text) {
         .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
         // 移除标题标记 ###
         .replace(/^#{1,6}\s+/gm, '')
-        // 移除粗体/斜体 ***text*** **text** *text*
-        .replace(/\*{1,3}([^*]+)\*{1,3}/g, '$1')
+        // 移除粗体/斜体 ***text*** **text** *text*（要求标记内侧非空白，避免吞掉 "2 * 3 * 4" 中的乘号）
+        .replace(/\*{1,3}(?!\s)([^*]+?)(?<!\s)\*{1,3}/g, '$1')
         // 移除下划线风格粗体/斜体 ___text___ __text__ _text_
         .replace(/_{1,3}([^_]+)_{1,3}/g, '$1')
         // 移除删除线 ~~text~~
@@ -179,6 +179,11 @@ function ocr(query, completion) {
     var apiUrl = ($option.apiUrl || "https://api.mistral.ai").replace(/\/+$/, '');
     var keepMarkdown = $option.keepMarkdown === "true";
     var model = $option.model || "mistral-ocr-latest";
+    // 已退役的模型 ID 回退到最新版，避免用户历史选择导致请求必然失败
+    var RETIRED_MODELS = ["mistral-ocr-2503", "mistral-ocr-2505"];
+    if (RETIRED_MODELS.indexOf(model) !== -1) {
+        model = "mistral-ocr-latest";
+    }
     var base64Image = query.image.toBase64();
     var mimeType = detectMimeType(base64Image);
 
@@ -238,13 +243,29 @@ function ocr(query, completion) {
             }
 
             var data = resp.data;
+            if (!data || !Array.isArray(data.pages)) {
+                completion({
+                    error: {
+                        type: "api",
+                        message: "响应为空或格式无法解析",
+                        addition: JSON.stringify(data),
+                    },
+                });
+                return;
+            }
+
             var texts = [];
 
-            (data.pages || []).forEach(function (page) {
-                if (!page.markdown || !page.markdown.trim()) return;
+            data.pages.forEach(function (page) {
+                if (!page || !page.markdown || !page.markdown.trim()) return;
 
                 var content = keepMarkdown ? page.markdown : stripMarkdown(page.markdown);
-                texts.push({ text: content.replace(/\n/g, '\n\n') });
+                // 保留 Markdown 时原样输出，避免破坏表格 / 列表 / 代码块结构；
+                // 纯文本模式下将连续换行归一为段落分隔，触发 Bob 换行渲染且避免多余空行
+                if (!keepMarkdown) {
+                    content = content.replace(/\n+/g, '\n\n');
+                }
+                texts.push({ text: content });
             });
 
             if (texts.length === 0) {
