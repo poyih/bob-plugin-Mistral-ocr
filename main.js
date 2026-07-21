@@ -50,9 +50,9 @@ function pluginTimeoutInterval() {
     return 90;
 }
 
-// 检测图片 MIME 类型
+// 检测图片 MIME 类型（依据 base64 数据头部的魔术字节）
 function detectMimeType(base64) {
-    if (base64.indexOf('/9j/') === 0 || base64.indexOf('/9j/') <= 4) return 'image/jpeg';
+    if (base64.indexOf('/9j/') === 0) return 'image/jpeg';
     if (base64.indexOf('iVBOR') === 0) return 'image/png';
     if (base64.indexOf('R0lGOD') === 0) return 'image/gif';
     if (base64.indexOf('UklGR') === 0) return 'image/webp';
