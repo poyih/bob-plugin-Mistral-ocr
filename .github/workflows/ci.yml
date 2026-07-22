@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check JavaScript syntax
+        run: npm run check:syntax
+
+      - name: Scan repository files for credentials
+        run: npm run check:secrets
+
+      - name: Validate release metadata
+        run: npm run check:metadata
+
+      - name: Verify release assets, archive scope, and tags
+        run: npm run check:metadata:deep
+
+      - name: Run plugin integration tests
+        run: npm test
+
+      - name: Build deterministic plugin archive
+        run: npm run build
+
+      - name: Verify archive scope and reproducibility
+        run: npm run check:archive

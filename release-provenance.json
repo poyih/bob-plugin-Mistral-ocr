@@ -1,0 +1,71 @@
+{
+    "schemaVersion": 1,
+    "canonicalArtifactPolicy": "Published .bobplugin assets and their appcast SHA-256 values are canonical; existing tags and release assets remain immutable.",
+    "legacyIdentifier": {
+        "identifier": "com.poyih.bob-plugin-mistral-ocr",
+        "affectedVersions": ["0.2.0", "0.3.0", "0.4.0"],
+        "migration": "manual-uninstall-and-reinstall",
+        "reason": "Bob requires the appcast identifier to match the installed plugin identifier, and one static appcast cannot serve both the legacy and current identifiers."
+    },
+    "retiredReleasedVersions": [
+        {
+            "version": "0.4.0",
+            "identifier": "com.poyih.bob-plugin-mistral-ocr",
+            "sha256": "acc6323b5e63e2598bddf9276f0bd5a850fa186d4fcd0200d7d5fd1d46b00318",
+            "url": "https://github.com/poyih/bob-plugin-mistral-ocr/releases/download/v0.4.0/Mistral-OCR.bobplugin",
+            "minBobVersion": "1.8.0",
+            "reason": "Released under the legacy identifier; retained on GitHub but excluded from the current identifier's appcast."
+        },
+        {
+            "version": "0.3.0",
+            "identifier": "com.poyih.bob-plugin-mistral-ocr",
+            "sha256": "c340021569a7606ae3e28288a5b32109a9310e813e171b607fcfc870e801dea6",
+            "url": "https://github.com/poyih/bob-plugin-mistral-ocr/releases/download/v0.3.0/Mistral-OCR.bobplugin",
+            "minBobVersion": "1.8.0",
+            "reason": "Released under the legacy identifier; retained on GitHub but excluded from the current identifier's appcast."
+        },
+        {
+            "version": "0.2.0",
+            "identifier": "com.poyih.bob-plugin-mistral-ocr",
+            "sha256": "759ba4063665ca874d0ef3f4092f11d399387c09b63ae0cdd99ab83bed1e27d0",
+            "url": "https://github.com/poyih/bob-plugin-mistral-ocr/releases/download/v0.2.0/Mistral-OCR.bobplugin",
+            "minBobVersion": "0.5.0",
+            "reason": "Released under the legacy identifier; retained on GitHub but excluded from the current identifier's appcast."
+        }
+    ],
+    "unpublishedVersions": [
+        {
+            "version": "1.0.5",
+            "reason": "No Git tag or GitHub release asset exists; removed from appcast."
+        },
+        {
+            "version": "1.0.6",
+            "reason": "No Git tag or GitHub release asset exists; removed from appcast."
+        },
+        {
+            "version": "1.0.7",
+            "reason": "No Git tag or GitHub release asset exists; removed from appcast."
+        },
+        {
+            "version": "1.0.8",
+            "reason": "No Git tag or GitHub release asset exists; removed from appcast."
+        }
+    ],
+    "tagContentExceptions": [
+        {
+            "version": "0.2.0",
+            "differingFiles": ["info.json"],
+            "reason": "The published package adds the appcast URL that is empty in tag v0.2.0."
+        },
+        {
+            "version": "1.0.0",
+            "differingFiles": ["main.js"],
+            "reason": "The published package returns one text item per page, while tag v1.0.0 still splits content into paragraphs."
+        },
+        {
+            "version": "1.2.0",
+            "differingFiles": ["info.json"],
+            "reason": "The published package uses the normalized lowercase repository URLs added immediately after tag v1.2.0."
+        }
+    ]
+}

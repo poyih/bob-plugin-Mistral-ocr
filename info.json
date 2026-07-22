@@ -1,6 +1,6 @@
 {
     "identifier": "bob-plugin-mistral-ocr",
-    "version": "1.3.1",
+    "version": "1.4.0",
     "category": "ocr",
     "name": "Mistral OCR",
     "summary": "使用 Mistral AI OCR 进行文本识别",
@@ -24,7 +24,7 @@
             "identifier": "apiUrl",
             "type": "text",
             "title": "自定义 API 地址",
-            "desc": "可留空，默认为 https://api.mistral.ai",
+            "desc": "可留空；远程地址必须使用 HTTPS，本机回环地址可使用 HTTP",
             "textConfig": {
                 "type": "visible",
                 "placeholderText": "https://api.mistral.ai"

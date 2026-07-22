@@ -1,0 +1,19 @@
+{
+  "name": "bob-plugin-mistral-ocr-tooling",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check:syntax": "node --check main.js && node --check scripts/build-plugin.mjs && node --check scripts/check-secrets.mjs && node --check scripts/validate-release-metadata.mjs && node --check tests/integration.test.mjs",
+    "check:secrets": "node scripts/check-secrets.mjs",
+    "check:metadata": "node scripts/validate-release-metadata.mjs",
+    "check:metadata:deep": "node scripts/validate-release-metadata.mjs --check-assets --check-tags",
+    "test": "node --test",
+    "build": "node scripts/build-plugin.mjs",
+    "check:archive": "node scripts/build-plugin.mjs --check dist/Mistral-OCR.bobplugin",
+    "ci": "npm run check:syntax && npm run check:secrets && npm run check:metadata && npm test && npm run build && npm run check:archive"
+  }
+}

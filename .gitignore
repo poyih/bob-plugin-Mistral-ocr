@@ -1,2 +1,11 @@
 .DS_Store
 *.bobplugin
+
+# Local tool permissions may contain command history or credentials.
+.claude/settings.local.json
+
+# Local environment files may contain API keys. Keep shareable templates tracked.
+.env
+.env.*
+!.env.example
+!.env.sample
