@@ -2,6 +2,14 @@
     "identifier": "bob-plugin-mistral-ocr",
     "versions": [
         {
+            "version": "1.5.0",
+            "desc": "新增 Mistral OCR 4.1（mistral-ocr-4-1，2026.07 发布，公开预览）模型选项；更新最新版说明与固定版本选择；新增模型配置及请求转发测试",
+            "sha256": "9d2d0a040e57027f148e8db84181ce96b15ae87cd1e7b86ff84cbf253040f529",
+            "url": "https://github.com/poyih/bob-plugin-mistral-ocr/releases/download/v1.5.0/Mistral-OCR.bobplugin",
+            "minBobVersion": "1.8.0",
+            "timestamp": 1786678434000
+        },
+        {
             "version": "1.4.0",
             "desc": "全面安全与可靠性修复：强制远程 API 使用 HTTPS，校验并脱敏 API Key，修正 Bob 错误分类与单次回调；补全 JPEG / PNG / GIF / WebP / BMP / TIFF / AVIF / HEIC / HEIF 检测并拒绝图像序列容器；重写 Markdown 纯文本解析，修复链接、图片、表格、代码、公式边界与线性性能；新增集成测试、密钥扫描、确定性构建、CI 与发布资产校验",
             "sha256": "6755694b9442dc2ae670f660e643b012402eb7e129ec09f3c13106defbe75ea5",

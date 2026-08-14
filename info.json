@@ -1,6 +1,6 @@
 {
     "identifier": "bob-plugin-mistral-ocr",
-    "version": "1.4.0",
+    "version": "1.5.0",
     "category": "ocr",
     "name": "Mistral OCR",
     "summary": "使用 Mistral AI OCR 进行文本识别",
@@ -38,6 +38,7 @@
             "defaultValue": "mistral-ocr-latest",
             "menuValues": [
                 { "title": "最新版（推荐）", "value": "mistral-ocr-latest" },
+                { "title": "OCR 4.1（26.07，公开预览）", "value": "mistral-ocr-4-1" },
                 { "title": "OCR 4（26.06）", "value": "mistral-ocr-4-0" },
                 { "title": "OCR 3（25.12）", "value": "mistral-ocr-2512" }
             ]

@@ -7,6 +7,7 @@ import vm from "node:vm";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const PLUGIN_SOURCE = await readFile(resolve(ROOT, "main.js"), "utf8");
+const PLUGIN_INFO = JSON.parse(await readFile(resolve(ROOT, "info.json"), "utf8"));
 const PNG_BASE64 = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]).toString("base64");
 
 function isoBmff(majorBrand, ...compatibleBrands) {
@@ -80,6 +81,23 @@ test("declares Bob-compatible language codes and avoids RegExp lookbehind", () =
   assert.ok(!languages.includes("pt-PT"));
   assert.equal(PLUGIN_SOURCE.includes("(?<="), false);
   assert.equal(PLUGIN_SOURCE.includes("(?<!"), false);
+});
+
+test("offers OCR 4.1 and forwards latest or pinned model IDs unchanged", () => {
+  const modelOption = PLUGIN_INFO.options.find((option) => option.identifier === "model");
+  assert.ok(modelOption, "info.json must declare the model option");
+  assert.equal(modelOption.defaultValue, "mistral-ocr-latest");
+  assert.deepEqual(
+    modelOption.menuValues.map(({ value }) => value),
+    ["mistral-ocr-latest", "mistral-ocr-4-1", "mistral-ocr-4-0", "mistral-ocr-2512"],
+  );
+
+  for (const model of ["mistral-ocr-latest", "mistral-ocr-4-1"]) {
+    const plugin = loadPlugin({ model });
+    invokeOcr(plugin);
+    assert.equal(plugin.requests.length, 1);
+    assert.equal(plugin.requests[0].body.model, model);
+  }
 });
 
 test("rejects insecure remote API URLs before validation or OCR sends credentials", async (t) => {
